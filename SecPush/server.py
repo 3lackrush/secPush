@@ -22,7 +22,10 @@ class Feed(object):
             return feeddata
 
     def _getSinglefeed(self):
-
+        '''
+        delete old feed from database first
+        '''
+        self.dbobj.delFeed()
         feed_list = self._getFeed()
         for _ in feed_list:
 
@@ -34,6 +37,7 @@ class Feed(object):
             self._getContent(parse_config)
 
     def _getContent(self, parse_config):
+
         head = {}
         head['User-Agent'] = 'Mozilla/5.0 (Linux; Android 4.1.1; Nexus 7 Build/JRO03D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166  Safari/535.19'
         if parse_config[0].startswith("https"):
