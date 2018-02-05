@@ -29,7 +29,6 @@ class secPushSQL(object):
             self.db.rollback()
 
     def getFeedFromDb(self):
-        #resstr = ""
         reslist = []
         try:
             SQL = "SELECT * from secpushinfo"
@@ -40,16 +39,14 @@ class secPushSQL(object):
                 tmp_dic["title"] = each[1]
                 tmp_dic["url"] = each[2]
                 reslist.append(tmp_dic)
-            # for each in res:
-            #     resstr += str(each[0])
-            #     resstr += " "
-            #     resstr += each[1]
-            #     resstr += " "
-            #     resstr += each[2]
-            #     resstr += "\n"
-            #return resstr
-            #print(reslist)
             return reslist
+        except Exception as e:
+            print(str(e))
+
+    def delFeed(self):
+        try:
+            SQL = "DELETE FROM secpushinfo"
+            self.cursor.execute(SQL)
         except Exception as e:
             print(str(e))
 
