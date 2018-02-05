@@ -1,0 +1,34 @@
+[
+        {
+                "name": "anquanke",
+                "s_title": "安全客",
+                "rss": "https://api.anquanke.com/data/v1/rss",
+                "parse_url": "guid",
+                "parse_title": "title",
+                "parse_date": "pubDate"
+        },
+        {
+                "name": "freebuf",
+                "s_title": "freebuf",
+                "rss": "http://www.freebuf.com/feed",
+                "parse_url": "link",
+                "parse_title": "title",
+                "parse_date": "pubDate"
+        },
+        {
+                "name": "腾讯玄武实验室",
+                "s_title": "腾讯玄武实验室",
+                "rss": "https://api.prprpr.me/weibo/rss/5582522936",
+                "parse_url": "link",
+                "parse_title": "title",
+                "parse_date": "pubDate"
+        },
+        {
+                "name": "RoarTalk",
+                "s_title": "嘶吼",
+                "rss": "http://www.4hou.com/category/technology/feed",
+                "parse_url": "link",
+                "parse_title": "title",
+                "parse_date": "pubDate"
+        }
+]
