@@ -18,17 +18,15 @@ from tornado.escape import json_encode
 import datetime
 import json
 
-TOKEN = os.getenv('WECHAT_TOKEN', 'kevinishandsome1992')
-AES_KEY = os.getenv('WECHAT_AES_KEY', 'gv6SgJQ4oZyzIzUQozBLDH3eKzgo4TyBxrVDCqGlGQ1')
-APPID = os.getenv('WECHAT_APPID', 'wx780feb7a21fc82e0')
+TOKEN = os.getenv('WECHAT_TOKEN', '#')
+AES_KEY = os.getenv('WECHAT_AES_KEY', '#')
+APPID = os.getenv('WECHAT_APPID', '#')
 
 define("port", default=9000, help="run on the given port", type=int)
 
 class WeiXinHandler(tornado.web.RequestHandler):
 
-	#用于微信公众号网页修改基本信息时的验证
 	def get(self):
-		# 获取微信公众平台发送的验证参数
 		signature = self.get_argument('signature', '')
 		timestamp = self.get_argument('timestamp', '')
 		nonce = self.get_argument('nonce', '')
@@ -38,30 +36,20 @@ class WeiXinHandler(tornado.web.RequestHandler):
 		except InvalidSignatureException:
 			self.set_stauts('403')
 			self.write('error,code 403')
-		#按照约定，如果正常，则原样返回echostr
 		self.write(echostr)
 	def post(self):
-		# 获取微信公众平台发送的验证参数
 		signature = self.get_argument('signature', '')
 		timestamp = self.get_argument('timestamp', '')
 		nonce = self.get_argument('nonce', '')
 		echostr = self.get_argument('echostr', '')
-		# 获取所有值并解析
 		msg = parse_message(self.request.body)
 		if msg.type == 'text':
 			content = msg.content.strip()
 			if content == 'biu':
 				try:
-					#dbobj = secPushSQL(MYSQL_HOST,MYSQL_PORT,MYSQL_USER,MYSQL_PASS,MYSQL_DBNAME)
-					#retmsg = dbobj.getFeedFromDb()
-					#print(">>> ", retmsg)
-					#reply = create_reply(retmsg, msg)
-					#reply = TextReply(content=retmsg, message=msg)
 					datePush = '{0:%Y-%m-%d}'.format(datetime.datetime.now()) + "安全资讯推送"
 					retmsg = [{"title": datePush, "url": "https://opensource.mkernel.com/view"},]
 					reply = ArticlesReply(message=msg, articles=retmsg)
-					#dbobj.cursor.close()
-					#dbobj.db.close()
 				except Exception as e:
 					print(str(e))
 				self.write(reply.render())
@@ -105,7 +93,6 @@ class WexinViewHandler(tornado.web.RequestHandler):
 
 
 app = tornado.wsgi.WSGIApplication([
-	# 这里需要根据修改为自己的URL匹配
 	(r"/", WeiXinHandler),
 	(r"/json", WeixinJsonHandler),
 	(r"/view", WexinViewHandler),
@@ -113,7 +100,6 @@ app = tornado.wsgi.WSGIApplication([
 ])
 
 if __name__=="__main__":
-	# 启动tornado实例
 	tornado.options.parse_command_line()
 	http_server = tornado.httpserver.HTTPServer(app)
 	http_server.listen(options.port)
