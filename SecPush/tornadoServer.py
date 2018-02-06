@@ -14,6 +14,7 @@ import tornado.wsgi
 from tornado.options import define, options
 from lib.secpushSQL import secPushSQL
 from lib.db import *
+from lib.ipSearch import get_location
 from tornado.escape import json_encode
 import datetime
 import json
@@ -57,6 +58,11 @@ class WeiXinHandler(tornado.web.RequestHandler):
 				retmsg = create_reply("获取最新资讯: 输入代码 biu")
 				reply = create_reply(retmsg, msg)
 				self.write(reply.render())
+                        elif content.startswith('ip'):
+                                ipaddress = content.split(" ")[1]
+                                retmsg = create_reply(get_location(ipaddress))
+                                reply = create_reply(retmsg, msg)
+                                self.write(reply.render())
 			else:
 				reply = create_reply("对不起,无效的命令! 输入help查看", msg)
 				self.write(reply.render())
