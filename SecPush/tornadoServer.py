@@ -55,14 +55,14 @@ class WeiXinHandler(tornado.web.RequestHandler):
 					print(str(e))
 				self.write(reply.render())
 			elif content == 'help':
-				retmsg = create_reply("获取最新资讯: 输入代码 biu")
+				retmsg = create_reply("1.获取最新资讯: 输入代码 biu \n2.获取ip地址信息: 输入代码 ip 1.1.1.1")
 				reply = create_reply(retmsg, msg)
 				self.write(reply.render())
-                        elif content.startswith('ip'):
-                                ipaddress = content.split(" ")[1]
-                                retmsg = create_reply(get_location(ipaddress))
-                                reply = create_reply(retmsg, msg)
-                                self.write(reply.render())
+			elif content.startswith('ip'):
+				ipaddress = content.split(" ")[1]
+				retmsg = create_reply(get_location(ipaddress))
+				reply = create_reply(retmsg, msg)
+				self.write(reply.render())
 			else:
 				reply = create_reply("对不起,无效的命令! 输入help查看", msg)
 				self.write(reply.render())
