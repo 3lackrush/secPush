@@ -9,6 +9,11 @@ pymysql
 ## Things you should know
 change the config of mysql, modify the WECHAT_TOKEN,WECHAT_AES_KEY,WECHAT_APPID
 
+## Add crontab schedule for daily update
+crontab -e
+59 23 * * * /root/secPush/SecPush/run.sh
+make sure your own path is right!
+
 ## Renderings
 ![](https://raw.githubusercontent.com/3lackrush/secPush/master/images/IMG_0503.PNG)
 ![](https://raw.githubusercontent.com/3lackrush/secPush/master/images/IMG_0504.PNG)
