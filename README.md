@@ -13,7 +13,7 @@ change the config of mysql, modify the WECHAT_TOKEN,WECHAT_AES_KEY,WECHAT_APPID
 
 ## Add crontab schedule for daily update
 crontab -e  
-59 23 * * * /root/secPush/SecPush/run.sh  
+00 08 * * * /root/secPush/SecPush/run.sh  
 make sure your own path is right!  
 
 ## Add ip location Searching function
